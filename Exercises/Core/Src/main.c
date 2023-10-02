@@ -142,9 +142,8 @@ int main(void)
 	  if(timer1_flag == 0 && counter == 0)
 	  {
 		  HAL_GPIO_WritePin(en0_GPIO_Port, en0_Pin, RESET);
-		  HAL_GPIO_WritePin(en1_GPIO_Port, en1_Pin, SET);
-		  HAL_GPIO_WritePin(en2_GPIO_Port, en2_Pin, SET);
-		  HAL_GPIO_WritePin(en3_GPIO_Port, en3_Pin, SET);
+		  HAL_GPIO_WritePin(GPIOA, en1_Pin | en2_Pin | en3_Pin, SET);
+
 		  HAL_GPIO_WritePin(dot_GPIO_Port, dot_Pin, RESET);
 		  display7SEG(1);
 	  }
@@ -156,10 +155,9 @@ int main(void)
 			  timer1_flag = 1;
 			  counter++;
 		  }
-		  HAL_GPIO_WritePin(en0_GPIO_Port, en0_Pin, SET);
 		  HAL_GPIO_WritePin(en1_GPIO_Port, en1_Pin, RESET);
-		  HAL_GPIO_WritePin(en2_GPIO_Port, en2_Pin, SET);
-		  HAL_GPIO_WritePin(en3_GPIO_Port, en3_Pin, SET);
+		  HAL_GPIO_WritePin(GPIOA, en0_Pin | en2_Pin | en3_Pin, SET);
+
 		  HAL_GPIO_WritePin(dot_GPIO_Port, dot_Pin, RESET);
 		  display7SEG(2);
 		  if(counter == 1 && timer1_counter <= 0)
@@ -170,10 +168,9 @@ int main(void)
 	  }
 	  else if(timer1_flag == 0 && counter == 2)
 	  {
-		  HAL_GPIO_WritePin(en0_GPIO_Port, en0_Pin, SET);
-		  HAL_GPIO_WritePin(en1_GPIO_Port, en1_Pin, SET);
 		  HAL_GPIO_WritePin(en2_GPIO_Port, en2_Pin, RESET);
-		  HAL_GPIO_WritePin(en3_GPIO_Port, en3_Pin, SET);
+		  HAL_GPIO_WritePin(GPIOA, en0_Pin | en1_Pin | en3_Pin, SET);
+
 		  HAL_GPIO_WritePin(dot_GPIO_Port, dot_Pin, SET);
 		  display7SEG(3);
 	  }
@@ -185,10 +182,9 @@ int main(void)
 			  timer1_flag = 1;
 			  counter++;
 		  }
-		  HAL_GPIO_WritePin(en0_GPIO_Port, en0_Pin, SET);
-		  HAL_GPIO_WritePin(en1_GPIO_Port, en1_Pin, SET);
-		  HAL_GPIO_WritePin(en2_GPIO_Port, en2_Pin, SET);
 		  HAL_GPIO_WritePin(en3_GPIO_Port, en3_Pin, RESET);
+		  HAL_GPIO_WritePin(GPIOA, en0_Pin | en1_Pin | en2_Pin, SET);
+
 		  HAL_GPIO_WritePin(dot_GPIO_Port, dot_Pin, SET);
 		  display7SEG(0);
 		  if(counter == 3 && timer1_counter <= 0)
