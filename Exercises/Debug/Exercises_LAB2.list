@@ -324,8 +324,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer1(50);
- 80002c0:	2032      	movs	r0, #50	; 0x32
+  setTimer1(25);
+ 80002c0:	2019      	movs	r0, #25
  80002c2:	f7ff ff43 	bl	800014c <setTimer1>
   int counter = 0;
  80002c6:	2300      	movs	r3, #0
@@ -361,8 +361,8 @@ int main(void)
  80002f0:	2b00      	cmp	r3, #0
  80002f2:	d108      	bne.n	8000306 <main+0x62>
 		  {
-			  setTimer1(50);
- 80002f4:	2032      	movs	r0, #50	; 0x32
+			  setTimer1(25);
+ 80002f4:	2019      	movs	r0, #25
  80002f6:	f7ff ff29 	bl	800014c <setTimer1>
 			  timer1_flag = 1;
  80002fa:	4b29      	ldr	r3, [pc, #164]	; (80003a0 <main+0xfc>)
@@ -387,8 +387,8 @@ int main(void)
  8000316:	2b00      	cmp	r3, #0
  8000318:	dc35      	bgt.n	8000386 <main+0xe2>
 		  {
-			  setTimer1(50);
- 800031a:	2032      	movs	r0, #50	; 0x32
+			  setTimer1(25);
+ 800031a:	2019      	movs	r0, #25
  800031c:	f7ff ff16 	bl	800014c <setTimer1>
 			  counter++;
  8000320:	687b      	ldr	r3, [r7, #4]
@@ -426,8 +426,8 @@ int main(void)
  800034e:	2b02      	cmp	r3, #2
  8000350:	d108      	bne.n	8000364 <main+0xc0>
 		  {
-			  setTimer1(50);
- 8000352:	2032      	movs	r0, #50	; 0x32
+			  setTimer1(25);
+ 8000352:	2019      	movs	r0, #25
  8000354:	f7ff fefa 	bl	800014c <setTimer1>
 			  timer1_flag = 1;
  8000358:	4b11      	ldr	r3, [pc, #68]	; (80003a0 <main+0xfc>)
@@ -452,8 +452,8 @@ int main(void)
  8000374:	2b00      	cmp	r3, #0
  8000376:	dc07      	bgt.n	8000388 <main+0xe4>
 		  {
-			  setTimer1(50);
- 8000378:	2032      	movs	r0, #50	; 0x32
+			  setTimer1(25);
+ 8000378:	2019      	movs	r0, #25
  800037a:	f7ff fee7 	bl	800014c <setTimer1>
 			  counter++;
  800037e:	687b      	ldr	r3, [r7, #4]

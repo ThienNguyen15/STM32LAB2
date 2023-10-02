@@ -170,7 +170,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer1(50);
+  setTimer1(25);
   int counter = 0;
   while (1)
   {
@@ -183,7 +183,7 @@ int main(void)
 	  {
 		  if(counter == 0)
 		  {
-			  setTimer1(50);
+			  setTimer1(25);
 			  timer1_flag = 1;
 			  counter++;
 		  }
@@ -192,7 +192,7 @@ int main(void)
 
 		  if(counter == 1 && timer1_counter <= 0)
 		  {
-			  setTimer1(50);
+			  setTimer1(25);
 			  counter++;
 		  }
 	  }
@@ -204,7 +204,7 @@ int main(void)
 	  {
 		  if(counter == 2)
 		  {
-			  setTimer1(50);
+			  setTimer1(25);
 			  timer1_flag = 1;
 			  counter++;
 		  }
@@ -213,7 +213,7 @@ int main(void)
 
 		  if(counter == 3 && timer1_counter <= 0)
 		  {
-			  setTimer1(50);
+			  setTimer1(25);
 			  counter++;
 		  }
 	  }
