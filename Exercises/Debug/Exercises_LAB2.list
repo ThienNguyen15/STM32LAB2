@@ -27,9 +27,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  0002001c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00008674  00000000  00000000  00020045  2**0
+ 12 .debug_info   00008673  00000000  00000000  00020045  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 0000158f  00000000  00000000  000286b9  2**0
+ 13 .debug_abbrev 0000158f  00000000  00000000  000286b8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  14 .debug_aranges 00000958  00000000  00000000  00029c48  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -185,7 +185,6 @@ void updateClockBuffer(int hour, int minute)
  80001f4:	20000000 	.word	0x20000000
 
 080001f8 <main>:
-
 
 
 int main(void)

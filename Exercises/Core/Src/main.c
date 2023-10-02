@@ -147,7 +147,6 @@ void updateClockBuffer(int hour, int minute)
 }
 
 
-
 int main(void)
 {
   /* USER CODE BEGIN 1 */
