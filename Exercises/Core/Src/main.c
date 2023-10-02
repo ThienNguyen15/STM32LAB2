@@ -221,7 +221,6 @@ int main(void)
 			  counter = 0;
 		  }
 	  }
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
