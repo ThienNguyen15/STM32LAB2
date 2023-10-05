@@ -37,11 +37,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  00016357  00000000  00000000  0002b060  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00009667  00000000  00000000  000413b7  2**0
+ 17 .debug_line   00009664  00000000  00000000  000413b7  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00082263  00000000  00000000  0004aa1e  2**0
+ 18 .debug_str    00082263  00000000  00000000  0004aa1b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000ccc81  2**0
+ 19 .comment      00000053  00000000  00000000  000ccc7e  2**0
                   CONTENTS, READONLY
  20 .debug_frame  0000271c  00000000  00000000  000cccd4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -671,13 +671,12 @@ void updateLEDMatrix(int sate, int index)
  800059c:	af00      	add	r7, sp, #0
  800059e:	6078      	str	r0, [r7, #4]
  80005a0:	6039      	str	r1, [r7, #0]
-    switch (state)
- 80005a2:	4b36      	ldr	r3, [pc, #216]	; (800067c <updateLEDMatrix+0xe4>)
- 80005a4:	681b      	ldr	r3, [r3, #0]
- 80005a6:	2b07      	cmp	r3, #7
- 80005a8:	d862      	bhi.n	8000670 <updateLEDMatrix+0xd8>
- 80005aa:	a201      	add	r2, pc, #4	; (adr r2, 80005b0 <updateLEDMatrix+0x18>)
- 80005ac:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 80005a2:	683b      	ldr	r3, [r7, #0]
+ 80005a4:	2b07      	cmp	r3, #7
+ 80005a6:	d863      	bhi.n	8000670 <updateLEDMatrix+0xd8>
+ 80005a8:	a201      	add	r2, pc, #4	; (adr r2, 80005b0 <updateLEDMatrix+0x18>)
+ 80005aa:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 80005ae:	bf00      	nop
  80005b0:	080005d1 	.word	0x080005d1
  80005b4:	080005e5 	.word	0x080005e5
  80005b8:	080005f9 	.word	0x080005f9
@@ -686,6 +685,7 @@ void updateLEDMatrix(int sate, int index)
  80005c4:	08000635 	.word	0x08000635
  80005c8:	08000649 	.word	0x08000649
  80005cc:	0800065d 	.word	0x0800065d
+    switch (index)
     {
         case 0:
         	displayRowLED_ON(index);

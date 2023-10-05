@@ -210,7 +210,7 @@ void displayRowLED_ON (int index)
 
 void updateLEDMatrix(int sate, int index)
 {
-    switch (state)
+    switch (index)
     {
         case 0:
         	displayRowLED_ON(index);
