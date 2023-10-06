@@ -168,9 +168,9 @@ int index_led_matrix = 0;
 int state = 0;
 uint8_t matrix_buffer[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
 
-uint8_t row_LED_ON[8] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
+uint8_t row_buffer[8] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
 
-uint8_t row_buffer[8][8] =
+uint8_t col_buffer[8][8] =
 {
 {0x18, 0x3C, 0x66, 0x66, 0x7E, 0x7E, 0x66, 0x66},
 {0x30, 0x78, 0xCC, 0xCC, 0xFC, 0xFC, 0xCC, 0xCC},
@@ -183,28 +183,28 @@ uint8_t row_buffer[8][8] =
 };
 
 
-void displayRow (int state, int index)
+void displayCol (int state, int index)
 {
-	  HAL_GPIO_WritePin(row0_GPIO_Port,row0_Pin, ((row_buffer[state][index]>>0)&0x01));
-	  HAL_GPIO_WritePin(row1_GPIO_Port,row1_Pin, ((row_buffer[state][index]>>1)&0x01));
-	  HAL_GPIO_WritePin(row2_GPIO_Port,row2_Pin, ((row_buffer[state][index]>>2)&0x01));
-	  HAL_GPIO_WritePin(row3_GPIO_Port,row3_Pin, ((row_buffer[state][index]>>3)&0x01));
-	  HAL_GPIO_WritePin(row4_GPIO_Port,row4_Pin, ((row_buffer[state][index]>>4)&0x01));
-	  HAL_GPIO_WritePin(row5_GPIO_Port,row5_Pin, ((row_buffer[state][index]>>5)&0x01));
-	  HAL_GPIO_WritePin(row6_GPIO_Port,row6_Pin, ((row_buffer[state][index]>>6)&0x01));
-	  HAL_GPIO_WritePin(row7_GPIO_Port,row7_Pin, ((row_buffer[state][index]>>7)&0x01));
+	  HAL_GPIO_WritePin(row0_GPIO_Port,row0_Pin, ((col_buffer[state][index]>>0)&0x01));
+	  HAL_GPIO_WritePin(row1_GPIO_Port,row1_Pin, ((col_buffer[state][index]>>1)&0x01));
+	  HAL_GPIO_WritePin(row2_GPIO_Port,row2_Pin, ((col_buffer[state][index]>>2)&0x01));
+	  HAL_GPIO_WritePin(row3_GPIO_Port,row3_Pin, ((col_buffer[state][index]>>3)&0x01));
+	  HAL_GPIO_WritePin(row4_GPIO_Port,row4_Pin, ((col_buffer[state][index]>>4)&0x01));
+	  HAL_GPIO_WritePin(row5_GPIO_Port,row5_Pin, ((col_buffer[state][index]>>5)&0x01));
+	  HAL_GPIO_WritePin(row6_GPIO_Port,row6_Pin, ((col_buffer[state][index]>>6)&0x01));
+	  HAL_GPIO_WritePin(row7_GPIO_Port,row7_Pin, ((col_buffer[state][index]>>7)&0x01));
 }
 
-void displayRowLED_ON (int index)
+void displayRow (int index)
 {
-	  HAL_GPIO_WritePin(enm0_GPIO_Port, enm0_Pin, ((row_LED_ON[index]>>0)&0x01));
-	  HAL_GPIO_WritePin(enm1_GPIO_Port, enm1_Pin, ((row_LED_ON[index]>>1)&0x01));
-	  HAL_GPIO_WritePin(enm2_GPIO_Port, enm2_Pin, ((row_LED_ON[index]>>2)&0x01));
-	  HAL_GPIO_WritePin(enm3_GPIO_Port, enm3_Pin, ((row_LED_ON[index]>>3)&0x01));
-	  HAL_GPIO_WritePin(enm4_GPIO_Port, enm4_Pin, ((row_LED_ON[index]>>4)&0x01));
-	  HAL_GPIO_WritePin(enm5_GPIO_Port, enm5_Pin, ((row_LED_ON[index]>>5)&0x01));
-	  HAL_GPIO_WritePin(enm6_GPIO_Port, enm6_Pin, ((row_LED_ON[index]>>6)&0x01));
-	  HAL_GPIO_WritePin(enm7_GPIO_Port, enm7_Pin, ((row_LED_ON[index]>>7)&0x01));
+	  HAL_GPIO_WritePin(enm0_GPIO_Port, enm0_Pin, ((row_buffer[index]>>0)&0x01));
+	  HAL_GPIO_WritePin(enm1_GPIO_Port, enm1_Pin, ((row_buffer[index]>>1)&0x01));
+	  HAL_GPIO_WritePin(enm2_GPIO_Port, enm2_Pin, ((row_buffer[index]>>2)&0x01));
+	  HAL_GPIO_WritePin(enm3_GPIO_Port, enm3_Pin, ((row_buffer[index]>>3)&0x01));
+	  HAL_GPIO_WritePin(enm4_GPIO_Port, enm4_Pin, ((row_buffer[index]>>4)&0x01));
+	  HAL_GPIO_WritePin(enm5_GPIO_Port, enm5_Pin, ((row_buffer[index]>>5)&0x01));
+	  HAL_GPIO_WritePin(enm6_GPIO_Port, enm6_Pin, ((row_buffer[index]>>6)&0x01));
+	  HAL_GPIO_WritePin(enm7_GPIO_Port, enm7_Pin, ((row_buffer[index]>>7)&0x01));
 }
 
 void updateLEDMatrix(int sate, int index)
@@ -212,36 +212,36 @@ void updateLEDMatrix(int sate, int index)
     switch (index)
     {
         case 0:
-        	displayRowLED_ON(index);
-        	displayRow(state, index);
+        	displayRow(index);
+        	displayCol(state, index);
             break;
         case 1:
-        	displayRowLED_ON(index);
-        	displayRow(state, index);
+        	displayRow(index);
+        	displayCol(state, index);
             break;
         case 2:
-        	displayRowLED_ON(index);
-        	displayRow(state, index);
+        	displayRow(index);
+        	displayCol(state, index);
             break;
         case 3:
-        	displayRowLED_ON(index);
-        	displayRow(state, index);
+        	displayRow(index);
+        	displayCol(state, index);
             break;
         case 4:
-        	displayRowLED_ON(index);
-        	displayRow(state, index);
+        	displayRow(index);
+        	displayCol(state, index);
             break;
         case 5:
-        	displayRowLED_ON(index);
-        	displayRow(state, index);
+        	displayRow(index);
+        	displayCol(state, index);
             break;
         case 6:
-        	displayRowLED_ON(index);
-        	displayRow(state, index);
+        	displayRow(index);
+        	displayCol(state, index);
             break;
         case 7:
-        	displayRowLED_ON(index);
-        	displayRow(state, index);
+        	displayRow(index);
+        	displayCol(state, index);
             break;
         default:
             break;
