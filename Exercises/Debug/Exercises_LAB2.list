@@ -39,11 +39,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_line   0000953b  00000000  00000000  0004125f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0008222f  00000000  00000000  0004a79a  2**0
+ 18 .debug_str    00082229  00000000  00000000  0004a79a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000cc9c9  2**0
+ 19 .comment      00000053  00000000  00000000  000cc9c3  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000026f0  00000000  00000000  000cca1c  2**2
+ 20 .debug_frame  000026f0  00000000  00000000  000cca18  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -143,19 +143,19 @@ void timerRun()
  80001a0:	20000038 	.word	0x20000038
  80001a4:	20000040 	.word	0x20000040
 
-080001a8 <displayRow>:
+080001a8 <displayCol>:
 
-uint8_t row_buffer[8] = {0x18, 0x3C, 0x66, 0x66, 0x7E, 0x7E, 0x66, 0x66};
-uint8_t row_LED_ON[8] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
+uint8_t col_buffer[8] = {0x18, 0x3C, 0x66, 0x66, 0x7E, 0x7E, 0x66, 0x66};
+uint8_t row_buffer[8] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
 
-void displayRow (int index)
+void displayCol (int index)
 {
  80001a8:	b580      	push	{r7, lr}
  80001aa:	b082      	sub	sp, #8
  80001ac:	af00      	add	r7, sp, #0
  80001ae:	6078      	str	r0, [r7, #4]
-	  HAL_GPIO_WritePin(row0_GPIO_Port,row0_Pin, ((row_buffer[index]>>0)&0x01));
- 80001b0:	4a3b      	ldr	r2, [pc, #236]	; (80002a0 <displayRow+0xf8>)
+	  HAL_GPIO_WritePin(row0_GPIO_Port,row0_Pin, ((col_buffer[index]>>0)&0x01));
+ 80001b0:	4a3b      	ldr	r2, [pc, #236]	; (80002a0 <displayCol+0xf8>)
  80001b2:	687b      	ldr	r3, [r7, #4]
  80001b4:	4413      	add	r3, r2
  80001b6:	781b      	ldrb	r3, [r3, #0]
@@ -163,10 +163,10 @@ void displayRow (int index)
  80001bc:	b2db      	uxtb	r3, r3
  80001be:	461a      	mov	r2, r3
  80001c0:	f44f 7180 	mov.w	r1, #256	; 0x100
- 80001c4:	4837      	ldr	r0, [pc, #220]	; (80002a4 <displayRow+0xfc>)
+ 80001c4:	4837      	ldr	r0, [pc, #220]	; (80002a4 <displayCol+0xfc>)
  80001c6:	f000 fe2b 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(row1_GPIO_Port,row1_Pin, ((row_buffer[index]>>1)&0x01));
- 80001ca:	4a35      	ldr	r2, [pc, #212]	; (80002a0 <displayRow+0xf8>)
+	  HAL_GPIO_WritePin(row1_GPIO_Port,row1_Pin, ((col_buffer[index]>>1)&0x01));
+ 80001ca:	4a35      	ldr	r2, [pc, #212]	; (80002a0 <displayCol+0xf8>)
  80001cc:	687b      	ldr	r3, [r7, #4]
  80001ce:	4413      	add	r3, r2
  80001d0:	781b      	ldrb	r3, [r3, #0]
@@ -176,10 +176,10 @@ void displayRow (int index)
  80001da:	b2db      	uxtb	r3, r3
  80001dc:	461a      	mov	r2, r3
  80001de:	f44f 7100 	mov.w	r1, #512	; 0x200
- 80001e2:	4830      	ldr	r0, [pc, #192]	; (80002a4 <displayRow+0xfc>)
+ 80001e2:	4830      	ldr	r0, [pc, #192]	; (80002a4 <displayCol+0xfc>)
  80001e4:	f000 fe1c 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(row2_GPIO_Port,row2_Pin, ((row_buffer[index]>>2)&0x01));
- 80001e8:	4a2d      	ldr	r2, [pc, #180]	; (80002a0 <displayRow+0xf8>)
+	  HAL_GPIO_WritePin(row2_GPIO_Port,row2_Pin, ((col_buffer[index]>>2)&0x01));
+ 80001e8:	4a2d      	ldr	r2, [pc, #180]	; (80002a0 <displayCol+0xf8>)
  80001ea:	687b      	ldr	r3, [r7, #4]
  80001ec:	4413      	add	r3, r2
  80001ee:	781b      	ldrb	r3, [r3, #0]
@@ -189,10 +189,10 @@ void displayRow (int index)
  80001f8:	b2db      	uxtb	r3, r3
  80001fa:	461a      	mov	r2, r3
  80001fc:	f44f 6180 	mov.w	r1, #1024	; 0x400
- 8000200:	4828      	ldr	r0, [pc, #160]	; (80002a4 <displayRow+0xfc>)
+ 8000200:	4828      	ldr	r0, [pc, #160]	; (80002a4 <displayCol+0xfc>)
  8000202:	f000 fe0d 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(row3_GPIO_Port,row3_Pin, ((row_buffer[index]>>3)&0x01));
- 8000206:	4a26      	ldr	r2, [pc, #152]	; (80002a0 <displayRow+0xf8>)
+	  HAL_GPIO_WritePin(row3_GPIO_Port,row3_Pin, ((col_buffer[index]>>3)&0x01));
+ 8000206:	4a26      	ldr	r2, [pc, #152]	; (80002a0 <displayCol+0xf8>)
  8000208:	687b      	ldr	r3, [r7, #4]
  800020a:	4413      	add	r3, r2
  800020c:	781b      	ldrb	r3, [r3, #0]
@@ -202,10 +202,10 @@ void displayRow (int index)
  8000216:	b2db      	uxtb	r3, r3
  8000218:	461a      	mov	r2, r3
  800021a:	f44f 6100 	mov.w	r1, #2048	; 0x800
- 800021e:	4821      	ldr	r0, [pc, #132]	; (80002a4 <displayRow+0xfc>)
+ 800021e:	4821      	ldr	r0, [pc, #132]	; (80002a4 <displayCol+0xfc>)
  8000220:	f000 fdfe 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(row4_GPIO_Port,row4_Pin, ((row_buffer[index]>>4)&0x01));
- 8000224:	4a1e      	ldr	r2, [pc, #120]	; (80002a0 <displayRow+0xf8>)
+	  HAL_GPIO_WritePin(row4_GPIO_Port,row4_Pin, ((col_buffer[index]>>4)&0x01));
+ 8000224:	4a1e      	ldr	r2, [pc, #120]	; (80002a0 <displayCol+0xf8>)
  8000226:	687b      	ldr	r3, [r7, #4]
  8000228:	4413      	add	r3, r2
  800022a:	781b      	ldrb	r3, [r3, #0]
@@ -215,10 +215,10 @@ void displayRow (int index)
  8000234:	b2db      	uxtb	r3, r3
  8000236:	461a      	mov	r2, r3
  8000238:	f44f 5180 	mov.w	r1, #4096	; 0x1000
- 800023c:	4819      	ldr	r0, [pc, #100]	; (80002a4 <displayRow+0xfc>)
+ 800023c:	4819      	ldr	r0, [pc, #100]	; (80002a4 <displayCol+0xfc>)
  800023e:	f000 fdef 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(row5_GPIO_Port,row5_Pin, ((row_buffer[index]>>5)&0x01));
- 8000242:	4a17      	ldr	r2, [pc, #92]	; (80002a0 <displayRow+0xf8>)
+	  HAL_GPIO_WritePin(row5_GPIO_Port,row5_Pin, ((col_buffer[index]>>5)&0x01));
+ 8000242:	4a17      	ldr	r2, [pc, #92]	; (80002a0 <displayCol+0xf8>)
  8000244:	687b      	ldr	r3, [r7, #4]
  8000246:	4413      	add	r3, r2
  8000248:	781b      	ldrb	r3, [r3, #0]
@@ -228,10 +228,10 @@ void displayRow (int index)
  8000252:	b2db      	uxtb	r3, r3
  8000254:	461a      	mov	r2, r3
  8000256:	f44f 5100 	mov.w	r1, #8192	; 0x2000
- 800025a:	4812      	ldr	r0, [pc, #72]	; (80002a4 <displayRow+0xfc>)
+ 800025a:	4812      	ldr	r0, [pc, #72]	; (80002a4 <displayCol+0xfc>)
  800025c:	f000 fde0 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(row6_GPIO_Port,row6_Pin, ((row_buffer[index]>>6)&0x01));
- 8000260:	4a0f      	ldr	r2, [pc, #60]	; (80002a0 <displayRow+0xf8>)
+	  HAL_GPIO_WritePin(row6_GPIO_Port,row6_Pin, ((col_buffer[index]>>6)&0x01));
+ 8000260:	4a0f      	ldr	r2, [pc, #60]	; (80002a0 <displayCol+0xf8>)
  8000262:	687b      	ldr	r3, [r7, #4]
  8000264:	4413      	add	r3, r2
  8000266:	781b      	ldrb	r3, [r3, #0]
@@ -241,10 +241,10 @@ void displayRow (int index)
  8000270:	b2db      	uxtb	r3, r3
  8000272:	461a      	mov	r2, r3
  8000274:	f44f 4180 	mov.w	r1, #16384	; 0x4000
- 8000278:	480a      	ldr	r0, [pc, #40]	; (80002a4 <displayRow+0xfc>)
+ 8000278:	480a      	ldr	r0, [pc, #40]	; (80002a4 <displayCol+0xfc>)
  800027a:	f000 fdd1 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(row7_GPIO_Port,row7_Pin, ((row_buffer[index]>>7)&0x01));
- 800027e:	4a08      	ldr	r2, [pc, #32]	; (80002a0 <displayRow+0xf8>)
+	  HAL_GPIO_WritePin(row7_GPIO_Port,row7_Pin, ((col_buffer[index]>>7)&0x01));
+ 800027e:	4a08      	ldr	r2, [pc, #32]	; (80002a0 <displayCol+0xf8>)
  8000280:	687b      	ldr	r3, [r7, #4]
  8000282:	4413      	add	r3, r2
  8000284:	781b      	ldrb	r3, [r3, #0]
@@ -252,7 +252,7 @@ void displayRow (int index)
  8000288:	b2db      	uxtb	r3, r3
  800028a:	461a      	mov	r2, r3
  800028c:	f44f 4100 	mov.w	r1, #32768	; 0x8000
- 8000290:	4804      	ldr	r0, [pc, #16]	; (80002a4 <displayRow+0xfc>)
+ 8000290:	4804      	ldr	r0, [pc, #16]	; (80002a4 <displayCol+0xfc>)
  8000292:	f000 fdc5 	bl	8000e20 <HAL_GPIO_WritePin>
 }
  8000296:	bf00      	nop
@@ -263,16 +263,16 @@ void displayRow (int index)
  80002a0:	20000000 	.word	0x20000000
  80002a4:	40010c00 	.word	0x40010c00
 
-080002a8 <displayRowLED_ON>:
+080002a8 <displayRow>:
 
-void displayRowLED_ON (int index)
+void displayRow (int index)
 {
  80002a8:	b580      	push	{r7, lr}
  80002aa:	b082      	sub	sp, #8
  80002ac:	af00      	add	r7, sp, #0
  80002ae:	6078      	str	r0, [r7, #4]
-	  HAL_GPIO_WritePin(enm0_GPIO_Port, enm0_Pin, ((row_LED_ON[index]>>0)&0x01));
- 80002b0:	4a3a      	ldr	r2, [pc, #232]	; (800039c <displayRowLED_ON+0xf4>)
+	  HAL_GPIO_WritePin(enm0_GPIO_Port, enm0_Pin, ((row_buffer[index]>>0)&0x01));
+ 80002b0:	4a3a      	ldr	r2, [pc, #232]	; (800039c <displayRow+0xf4>)
  80002b2:	687b      	ldr	r3, [r7, #4]
  80002b4:	4413      	add	r3, r2
  80002b6:	781b      	ldrb	r3, [r3, #0]
@@ -280,10 +280,10 @@ void displayRowLED_ON (int index)
  80002bc:	b2db      	uxtb	r3, r3
  80002be:	461a      	mov	r2, r3
  80002c0:	2104      	movs	r1, #4
- 80002c2:	4837      	ldr	r0, [pc, #220]	; (80003a0 <displayRowLED_ON+0xf8>)
+ 80002c2:	4837      	ldr	r0, [pc, #220]	; (80003a0 <displayRow+0xf8>)
  80002c4:	f000 fdac 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(enm1_GPIO_Port, enm1_Pin, ((row_LED_ON[index]>>1)&0x01));
- 80002c8:	4a34      	ldr	r2, [pc, #208]	; (800039c <displayRowLED_ON+0xf4>)
+	  HAL_GPIO_WritePin(enm1_GPIO_Port, enm1_Pin, ((row_buffer[index]>>1)&0x01));
+ 80002c8:	4a34      	ldr	r2, [pc, #208]	; (800039c <displayRow+0xf4>)
  80002ca:	687b      	ldr	r3, [r7, #4]
  80002cc:	4413      	add	r3, r2
  80002ce:	781b      	ldrb	r3, [r3, #0]
@@ -293,10 +293,10 @@ void displayRowLED_ON (int index)
  80002d8:	b2db      	uxtb	r3, r3
  80002da:	461a      	mov	r2, r3
  80002dc:	2108      	movs	r1, #8
- 80002de:	4830      	ldr	r0, [pc, #192]	; (80003a0 <displayRowLED_ON+0xf8>)
+ 80002de:	4830      	ldr	r0, [pc, #192]	; (80003a0 <displayRow+0xf8>)
  80002e0:	f000 fd9e 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(enm2_GPIO_Port, enm2_Pin, ((row_LED_ON[index]>>2)&0x01));
- 80002e4:	4a2d      	ldr	r2, [pc, #180]	; (800039c <displayRowLED_ON+0xf4>)
+	  HAL_GPIO_WritePin(enm2_GPIO_Port, enm2_Pin, ((row_buffer[index]>>2)&0x01));
+ 80002e4:	4a2d      	ldr	r2, [pc, #180]	; (800039c <displayRow+0xf4>)
  80002e6:	687b      	ldr	r3, [r7, #4]
  80002e8:	4413      	add	r3, r2
  80002ea:	781b      	ldrb	r3, [r3, #0]
@@ -306,10 +306,10 @@ void displayRowLED_ON (int index)
  80002f4:	b2db      	uxtb	r3, r3
  80002f6:	461a      	mov	r2, r3
  80002f8:	f44f 6180 	mov.w	r1, #1024	; 0x400
- 80002fc:	4828      	ldr	r0, [pc, #160]	; (80003a0 <displayRowLED_ON+0xf8>)
+ 80002fc:	4828      	ldr	r0, [pc, #160]	; (80003a0 <displayRow+0xf8>)
  80002fe:	f000 fd8f 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(enm3_GPIO_Port, enm3_Pin, ((row_LED_ON[index]>>3)&0x01));
- 8000302:	4a26      	ldr	r2, [pc, #152]	; (800039c <displayRowLED_ON+0xf4>)
+	  HAL_GPIO_WritePin(enm3_GPIO_Port, enm3_Pin, ((row_buffer[index]>>3)&0x01));
+ 8000302:	4a26      	ldr	r2, [pc, #152]	; (800039c <displayRow+0xf4>)
  8000304:	687b      	ldr	r3, [r7, #4]
  8000306:	4413      	add	r3, r2
  8000308:	781b      	ldrb	r3, [r3, #0]
@@ -319,10 +319,10 @@ void displayRowLED_ON (int index)
  8000312:	b2db      	uxtb	r3, r3
  8000314:	461a      	mov	r2, r3
  8000316:	f44f 6100 	mov.w	r1, #2048	; 0x800
- 800031a:	4821      	ldr	r0, [pc, #132]	; (80003a0 <displayRowLED_ON+0xf8>)
+ 800031a:	4821      	ldr	r0, [pc, #132]	; (80003a0 <displayRow+0xf8>)
  800031c:	f000 fd80 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(enm4_GPIO_Port, enm4_Pin, ((row_LED_ON[index]>>4)&0x01));
- 8000320:	4a1e      	ldr	r2, [pc, #120]	; (800039c <displayRowLED_ON+0xf4>)
+	  HAL_GPIO_WritePin(enm4_GPIO_Port, enm4_Pin, ((row_buffer[index]>>4)&0x01));
+ 8000320:	4a1e      	ldr	r2, [pc, #120]	; (800039c <displayRow+0xf4>)
  8000322:	687b      	ldr	r3, [r7, #4]
  8000324:	4413      	add	r3, r2
  8000326:	781b      	ldrb	r3, [r3, #0]
@@ -332,10 +332,10 @@ void displayRowLED_ON (int index)
  8000330:	b2db      	uxtb	r3, r3
  8000332:	461a      	mov	r2, r3
  8000334:	f44f 5180 	mov.w	r1, #4096	; 0x1000
- 8000338:	4819      	ldr	r0, [pc, #100]	; (80003a0 <displayRowLED_ON+0xf8>)
+ 8000338:	4819      	ldr	r0, [pc, #100]	; (80003a0 <displayRow+0xf8>)
  800033a:	f000 fd71 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(enm5_GPIO_Port, enm5_Pin, ((row_LED_ON[index]>>5)&0x01));
- 800033e:	4a17      	ldr	r2, [pc, #92]	; (800039c <displayRowLED_ON+0xf4>)
+	  HAL_GPIO_WritePin(enm5_GPIO_Port, enm5_Pin, ((row_buffer[index]>>5)&0x01));
+ 800033e:	4a17      	ldr	r2, [pc, #92]	; (800039c <displayRow+0xf4>)
  8000340:	687b      	ldr	r3, [r7, #4]
  8000342:	4413      	add	r3, r2
  8000344:	781b      	ldrb	r3, [r3, #0]
@@ -345,10 +345,10 @@ void displayRowLED_ON (int index)
  800034e:	b2db      	uxtb	r3, r3
  8000350:	461a      	mov	r2, r3
  8000352:	f44f 5100 	mov.w	r1, #8192	; 0x2000
- 8000356:	4812      	ldr	r0, [pc, #72]	; (80003a0 <displayRowLED_ON+0xf8>)
+ 8000356:	4812      	ldr	r0, [pc, #72]	; (80003a0 <displayRow+0xf8>)
  8000358:	f000 fd62 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(enm6_GPIO_Port, enm6_Pin, ((row_LED_ON[index]>>6)&0x01));
- 800035c:	4a0f      	ldr	r2, [pc, #60]	; (800039c <displayRowLED_ON+0xf4>)
+	  HAL_GPIO_WritePin(enm6_GPIO_Port, enm6_Pin, ((row_buffer[index]>>6)&0x01));
+ 800035c:	4a0f      	ldr	r2, [pc, #60]	; (800039c <displayRow+0xf4>)
  800035e:	687b      	ldr	r3, [r7, #4]
  8000360:	4413      	add	r3, r2
  8000362:	781b      	ldrb	r3, [r3, #0]
@@ -358,10 +358,10 @@ void displayRowLED_ON (int index)
  800036c:	b2db      	uxtb	r3, r3
  800036e:	461a      	mov	r2, r3
  8000370:	f44f 4180 	mov.w	r1, #16384	; 0x4000
- 8000374:	480a      	ldr	r0, [pc, #40]	; (80003a0 <displayRowLED_ON+0xf8>)
+ 8000374:	480a      	ldr	r0, [pc, #40]	; (80003a0 <displayRow+0xf8>)
  8000376:	f000 fd53 	bl	8000e20 <HAL_GPIO_WritePin>
-	  HAL_GPIO_WritePin(enm7_GPIO_Port, enm7_Pin, ((row_LED_ON[index]>>7)&0x01));
- 800037a:	4a08      	ldr	r2, [pc, #32]	; (800039c <displayRowLED_ON+0xf4>)
+	  HAL_GPIO_WritePin(enm7_GPIO_Port, enm7_Pin, ((row_buffer[index]>>7)&0x01));
+ 800037a:	4a08      	ldr	r2, [pc, #32]	; (800039c <displayRow+0xf4>)
  800037c:	687b      	ldr	r3, [r7, #4]
  800037e:	4413      	add	r3, r2
  8000380:	781b      	ldrb	r3, [r3, #0]
@@ -369,7 +369,7 @@ void displayRowLED_ON (int index)
  8000384:	b2db      	uxtb	r3, r3
  8000386:	461a      	mov	r2, r3
  8000388:	f44f 4100 	mov.w	r1, #32768	; 0x8000
- 800038c:	4804      	ldr	r0, [pc, #16]	; (80003a0 <displayRowLED_ON+0xf8>)
+ 800038c:	4804      	ldr	r0, [pc, #16]	; (80003a0 <displayRow+0xf8>)
  800038e:	f000 fd47 	bl	8000e20 <HAL_GPIO_WritePin>
 }
  8000392:	bf00      	nop
@@ -404,75 +404,75 @@ void updateLEDMatrix(int index)
     switch (index)
     {
         case 0:
-        	displayRowLED_ON(index);
+        	displayCol(index);
  80003d8:	6878      	ldr	r0, [r7, #4]
- 80003da:	f7ff ff65 	bl	80002a8 <displayRowLED_ON>
+ 80003da:	f7ff fee5 	bl	80001a8 <displayCol>
         	displayRow(index);
  80003de:	6878      	ldr	r0, [r7, #4]
- 80003e0:	f7ff fee2 	bl	80001a8 <displayRow>
+ 80003e0:	f7ff ff62 	bl	80002a8 <displayRow>
             break;
  80003e4:	e031      	b.n	800044a <updateLEDMatrix+0xa6>
         case 1:
-        	displayRowLED_ON(index);
+        	displayCol(index);
  80003e6:	6878      	ldr	r0, [r7, #4]
- 80003e8:	f7ff ff5e 	bl	80002a8 <displayRowLED_ON>
+ 80003e8:	f7ff fede 	bl	80001a8 <displayCol>
         	displayRow(index);
  80003ec:	6878      	ldr	r0, [r7, #4]
- 80003ee:	f7ff fedb 	bl	80001a8 <displayRow>
+ 80003ee:	f7ff ff5b 	bl	80002a8 <displayRow>
             break;
  80003f2:	e02a      	b.n	800044a <updateLEDMatrix+0xa6>
         case 2:
-        	displayRowLED_ON(index);
+        	displayCol(index);
  80003f4:	6878      	ldr	r0, [r7, #4]
- 80003f6:	f7ff ff57 	bl	80002a8 <displayRowLED_ON>
+ 80003f6:	f7ff fed7 	bl	80001a8 <displayCol>
         	displayRow(index);
  80003fa:	6878      	ldr	r0, [r7, #4]
- 80003fc:	f7ff fed4 	bl	80001a8 <displayRow>
+ 80003fc:	f7ff ff54 	bl	80002a8 <displayRow>
             break;
  8000400:	e023      	b.n	800044a <updateLEDMatrix+0xa6>
         case 3:
-        	displayRowLED_ON(index);
+        	displayCol(index);
  8000402:	6878      	ldr	r0, [r7, #4]
- 8000404:	f7ff ff50 	bl	80002a8 <displayRowLED_ON>
+ 8000404:	f7ff fed0 	bl	80001a8 <displayCol>
         	displayRow(index);
  8000408:	6878      	ldr	r0, [r7, #4]
- 800040a:	f7ff fecd 	bl	80001a8 <displayRow>
+ 800040a:	f7ff ff4d 	bl	80002a8 <displayRow>
             break;
  800040e:	e01c      	b.n	800044a <updateLEDMatrix+0xa6>
         case 4:
-        	displayRowLED_ON(index);
+        	displayCol(index);
  8000410:	6878      	ldr	r0, [r7, #4]
- 8000412:	f7ff ff49 	bl	80002a8 <displayRowLED_ON>
+ 8000412:	f7ff fec9 	bl	80001a8 <displayCol>
         	displayRow(index);
  8000416:	6878      	ldr	r0, [r7, #4]
- 8000418:	f7ff fec6 	bl	80001a8 <displayRow>
+ 8000418:	f7ff ff46 	bl	80002a8 <displayRow>
             break;
  800041c:	e015      	b.n	800044a <updateLEDMatrix+0xa6>
         case 5:
-        	displayRowLED_ON(index);
+        	displayCol(index);
  800041e:	6878      	ldr	r0, [r7, #4]
- 8000420:	f7ff ff42 	bl	80002a8 <displayRowLED_ON>
+ 8000420:	f7ff fec2 	bl	80001a8 <displayCol>
         	displayRow(index);
  8000424:	6878      	ldr	r0, [r7, #4]
- 8000426:	f7ff febf 	bl	80001a8 <displayRow>
+ 8000426:	f7ff ff3f 	bl	80002a8 <displayRow>
             break;
  800042a:	e00e      	b.n	800044a <updateLEDMatrix+0xa6>
         case 6:
-        	displayRowLED_ON(index);
+        	displayCol(index);
  800042c:	6878      	ldr	r0, [r7, #4]
- 800042e:	f7ff ff3b 	bl	80002a8 <displayRowLED_ON>
+ 800042e:	f7ff febb 	bl	80001a8 <displayCol>
         	displayRow(index);
  8000432:	6878      	ldr	r0, [r7, #4]
- 8000434:	f7ff feb8 	bl	80001a8 <displayRow>
+ 8000434:	f7ff ff38 	bl	80002a8 <displayRow>
             break;
  8000438:	e007      	b.n	800044a <updateLEDMatrix+0xa6>
         case 7:
-        	displayRowLED_ON(index);
+        	displayCol(index);
  800043a:	6878      	ldr	r0, [r7, #4]
- 800043c:	f7ff ff34 	bl	80002a8 <displayRowLED_ON>
+ 800043c:	f7ff feb4 	bl	80001a8 <displayCol>
         	displayRow(index);
  8000440:	6878      	ldr	r0, [r7, #4]
- 8000442:	f7ff feb1 	bl	80001a8 <displayRow>
+ 8000442:	f7ff ff31 	bl	80002a8 <displayRow>
             break;
  8000446:	e000      	b.n	800044a <updateLEDMatrix+0xa6>
         default:
