@@ -182,7 +182,6 @@ uint8_t col_buffer[8][8] =
 {0x0C, 0x1E, 0x33, 0x33, 0x3F, 0x3F, 0x33, 0x33}
 };
 
-
 void displayCol (int state, int index)
 {
 	  HAL_GPIO_WritePin(row0_GPIO_Port,row0_Pin, ((col_buffer[state][index]>>0)&0x01));
