@@ -76,6 +76,8 @@ int timer3_counter = 0;
 int timer4_counter = 0;
 int timer1_flag = 0;
 int timer2_flag = 0;
+int timer3_flag = 0;
+int timer4_flag = 0;
 
 void setTimer1(int duration)
 {
@@ -85,8 +87,20 @@ void setTimer1(int duration)
 
 void setTimer2(int duration)
 {
-	timer3_counter = duration;
+	timer2_counter = duration;
 	timer2_flag = 0;
+}
+
+void setTimer3(int duration)
+{
+	timer3_counter = duration;
+	timer3_flag = 0;
+}
+
+void setTimer4(int duration)
+{
+	timer4_counter = duration;
+	timer4_flag = 0;
 }
 
 void timerRun()
@@ -99,15 +113,44 @@ void timerRun()
 			timer1_flag = 1;
 		}
 	}
+}
+
+void timerRun2()
+{
+	if(timer2_counter > 0)
+	{
+		timer2_counter--;
+		if(timer2_counter <= 0)
+		{
+			timer2_flag = 1;
+		}
+	}
+}
+
+void timerRun3()
+{
 	if(timer3_counter > 0)
 	{
 		timer3_counter--;
 		if(timer3_counter <= 0)
 		{
-			timer2_flag = 1;
+			timer3_flag = 1;
 		}
 	}
-}//ADD
+}
+
+void timerRun4()
+{
+	if(timer4_counter > 0)
+	{
+		timer4_counter--;
+		if(timer4_counter <= 0)
+		{
+			timer4_flag = 1;
+		}
+	}
+}
+//ADD
 
 GPIO_TypeDef* seg_port[] = {a_GPIO_Port, b_GPIO_Port, c_GPIO_Port, d_GPIO_Port, e_GPIO_Port, f_GPIO_Port, g_GPIO_Port};
 int seg_pin[] = {a_Pin, b_Pin, c_Pin, d_Pin, e_Pin, f_Pin, g_Pin};
@@ -281,86 +324,23 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   int hour = 15, minute = 8, second = 50;
   setTimer1(25);
-  setTimer2(3);
+  setTimer2(100);
+  setTimer3(3);
+  setTimer4(100);
   while (1)
   {
     /* USER CODE END WHILE */
-	  if(timer2_flag == 0)
+
+	  if(timer1_flag == 1)
 	  {
-		  updateLEDMatrix(state, index_led_matrix);
-	  }
-	  else if(timer2_flag == 1)
-	  {
-		  if(timer4_counter == 0)
-		  {
-			  setTimer2(3);
-			  timer2_flag = 1;
-			  timer4_counter++;
-			  index_led_matrix++;
-		  }
-		  updateLEDMatrix(state, index_led_matrix);
-		  if(timer4_counter == 1 && timer3_counter <= 0)
-		  {
-			  setTimer2(3);
-			  timer4_counter = 0;
-			  index_led_matrix++;
-		  }
-	  }
-	  if(index_led_matrix >= MAX_LED_MATRIX)
-	  {
-		  index_led_matrix = 0;
-		  state++;
-		  if(state >= MAX_LED_MATRIX)
-			  state = 0;
+		  setTimer1(25);
+		  update7SEG(index_led++);
+		  if(index_led >= 4)	index_led = 0;
 	  }
 
-	    updateClockBuffer(hour, minute);
-		if(timer1_flag == 0 && timer2_counter == 0)
-		{
-			update7SEG(0);
-		}
-		else if(timer1_flag == 1 && timer2_counter <= 1)
-		{
-			if(timer2_counter == 0)
-			{
-				setTimer1(25);
-				timer1_flag = 1;
-				timer2_counter++;
-			}
-
-			update7SEG(1);
-
-			if(timer2_counter == 1 && timer1_counter <= 0)
-			{
-				setTimer1(25);
-				timer2_counter++;
-			}
-		}
-		else if(timer1_flag == 0 && timer2_counter == 2)
-		{
-			update7SEG(2);
-		}
-		else if(timer1_flag == 1 && timer2_counter <= 3)
-		{
-			if(timer2_counter == 2)
-			{
-				setTimer1(25);
-				timer1_flag = 1;
-				timer2_counter++;
-			}
-
-			update7SEG(3);
-
-			if(timer2_counter == 3 && timer1_counter <= 0)
-			{
-				setTimer1(25);
-				timer2_counter++;
-			}
-		}
-		if (timer2_counter == 4)
-		{
-			HAL_GPIO_TogglePin(dot_GPIO_Port, dot_Pin);
-			timer2_counter = 0;
+	  if(timer2_flag == 1)
+	  {
+		    setTimer2(100);
 		    second++;
 		    if (second >= 60)
 		    {
@@ -377,7 +357,24 @@ int main(void)
 		        hour = 0;
 		    }
 		    updateClockBuffer(hour, minute);
-		}
+	  }
+
+	  if(timer3_flag == 1)
+	  {
+		  setTimer3(3);
+		  updateLEDMatrix(state, index_led_matrix++);
+	  }
+	  if(timer4_flag == 1)
+	  {
+		  setTimer4(100);
+		  HAL_GPIO_TogglePin(dot_GPIO_Port, dot_Pin);
+	  }
+	  if(index_led_matrix >= MAX_LED_MATRIX)
+	  {
+		  index_led_matrix = 0;
+		  state++;
+		  if(state >= MAX_LED_MATRIX)	state = 0;
+	  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -520,6 +517,9 @@ static void MX_GPIO_Init(void)
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
 	timerRun();
+	timerRun2();
+	timerRun3();
+	timerRun4();
 }
 /* USER CODE END 4 */
 
